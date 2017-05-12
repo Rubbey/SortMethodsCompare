@@ -272,7 +272,7 @@ namespace SortMethodsCompare
             for (int u = 50000; u <= 200000; u += 10000)
             {
                 int[] TestArray = new int[u];
-                for (int j = TestArray.Length; j > 0; j--) TestArray[j] = j;
+                for (int j = TestArray.Length-1; j >= 0; j--) TestArray[j] = j;
 
                 double ElapsedSeconds;
                 long ElapsedTime = 0, MinTime = long.MaxValue, MaxTime = long.MinValue, IterationElapsedTime;
@@ -297,7 +297,7 @@ namespace SortMethodsCompare
             for (int u = 50000; u <= 200000; u += 10000)
             {
                 int[] TestArray = new int[u];
-                for (int j = TestArray.Length; j > 0; j--) TestArray[j] = j;
+                for (int j = TestArray.Length-1; j >= 0; j--) TestArray[j] = j;
 
                 double ElapsedSeconds;
                 long ElapsedTime = 0, MinTime = long.MaxValue, MaxTime = long.MinValue, IterationElapsedTime;
@@ -321,7 +321,7 @@ namespace SortMethodsCompare
             for (int u = 50000; u <= 200000; u += 10000)
             {
                 int[] TestArray = new int[u];
-                for (int j = TestArray.Length; j > 0; j--) TestArray[j] = j;
+                for (int j = TestArray.Length-1; j >= 0; j--) TestArray[j] = j;
 
                 double ElapsedSeconds;
                 long ElapsedTime = 0, MinTime = long.MaxValue, MaxTime = long.MinValue, IterationElapsedTime;
