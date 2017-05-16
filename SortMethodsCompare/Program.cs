@@ -100,20 +100,19 @@ namespace SortMethodsCompare
 
         static void Main(string[] args)
         {
-            const int NIter = 10; // liczba powtórzeń testu
+            const int NIter = 10; // Liczba powtórzeń testu.
 
-            // Tablica generowna losowo
 
-            Console.WriteLine("\nInsertionSort [tablica generowana losowo]\n");
-            Console.WriteLine("ARRAY SIZE:\t TIME [ms]:");
-                                    
+            // Tablica generowna losowo.
+            Random rnd = new Random(Guid.NewGuid().GetHashCode());
+            int[] ArrayRandom = new int[200000];
+            for (int j = 0; j < ArrayRandom.Length; j++) ArrayRandom[j] = rnd.Next(int.MaxValue);
+
+            Console.WriteLine("\nInsertionSort [tablica generowana losowo]\nARRAY SIZE:\t TIME [ms]:");                                                
             for (int u = 50000; u <= 200000; u+=10000)
             {
-                Random rnd = new Random(Guid.NewGuid().GetHashCode());
-                
                 int[] TestArray = new int[u];
-                for (int j = 0; j < TestArray.Length; j++) TestArray[j] = rnd.Next(int.MaxValue);
-                
+                Array.Copy(ArrayRandom, TestArray, u);
                 double ElapsedSeconds;
                 long ElapsedTime = 0, MinTime = long.MaxValue, MaxTime = long.MinValue, IterationElapsedTime;
                 for (int n = 0; n < (NIter + 1 + 1); ++n)  // odejmujemy wartości skrajne
@@ -130,16 +129,12 @@ namespace SortMethodsCompare
                 ElapsedSeconds = ElapsedTime * (1000.0 / (NIter * Stopwatch.Frequency));
                 Console.WriteLine("{0,-12}\t{1}", u, ElapsedSeconds.ToString("F4"));
             }
-
-            Console.WriteLine("\nSelectionSort [tablica generowana losowo]\n");
-            Console.WriteLine("ARRAY SIZE:\t TIME [ms]:");
             
+            Console.WriteLine("\nSelectionSort [tablica generowana losowo]\nARRAY SIZE:\t TIME [ms]:");                        
             for (int u = 50000; u <= 200000; u += 10000)
             {
-                Random rnd = new Random(Guid.NewGuid().GetHashCode());
-
                 int[] TestArray = new int[u];
-                for (int j = 0; j < TestArray.Length; j++) TestArray[j] = rnd.Next(int.MaxValue);
+                Array.Copy(ArrayRandom, TestArray, u);
 
                 double ElapsedSeconds;
                 long ElapsedTime = 0, MinTime = long.MaxValue, MaxTime = long.MinValue, IterationElapsedTime;
@@ -157,15 +152,11 @@ namespace SortMethodsCompare
                 ElapsedSeconds = ElapsedTime * (1000.0 / (NIter * Stopwatch.Frequency));
                 Console.WriteLine("{0,-12}\t{1}", u, ElapsedSeconds.ToString("F4"));
             }
-            Console.WriteLine("\nCoctailSort [tablica generowana losowo]\n");
-            Console.WriteLine("ARRAY SIZE:\t TIME [ms]:");
-
+            Console.WriteLine("\nCoctailSort [tablica generowana losowo]\nARRAY SIZE:\t TIME [ms]:");           
             for (int u = 50000; u <= 200000; u += 10000)
             {
-                Random rnd = new Random(Guid.NewGuid().GetHashCode());
-
                 int[] TestArray = new int[u];
-                for (int j = 0; j < TestArray.Length; j++) TestArray[j] = rnd.Next(int.MaxValue);
+                Array.Copy(ArrayRandom, TestArray, u);
 
                 double ElapsedSeconds;
                 long ElapsedTime = 0, MinTime = long.MaxValue, MaxTime = long.MinValue, IterationElapsedTime;
@@ -185,16 +176,16 @@ namespace SortMethodsCompare
             }
 
 
+            
+            // Tablica rosnąca.
+            int[] ArrayIncreasing = new int[200000];
+            for (int j = 0; j < ArrayIncreasing.Length; j++) ArrayIncreasing[j] = j;
 
-            // Tablica rosnąca
-
-            Console.WriteLine("\nInsertionSort [tablica generowana rosnąco]\n");
-            Console.WriteLine("ARRAY SIZE:\t TIME [ms]:");
-
+            Console.WriteLine("\nInsertionSort [tablica generowana rosnąco]\nARRAY SIZE:\t TIME [ms]:");            
             for (int u = 50000; u <= 200000; u += 10000)
             {
                 int[] TestArray = new int[u];
-                for (int j = 0; j < TestArray.Length; j++) TestArray[j] = j;
+                Array.Copy(ArrayIncreasing, TestArray, u);
 
                 double ElapsedSeconds;
                 long ElapsedTime = 0, MinTime = long.MaxValue, MaxTime = long.MinValue, IterationElapsedTime;
@@ -212,14 +203,12 @@ namespace SortMethodsCompare
                 ElapsedSeconds = ElapsedTime * (1000.0 / (NIter * Stopwatch.Frequency));
                 Console.WriteLine("{0,-12}\t{1}", u, ElapsedSeconds.ToString("F4"));
             }
-            
-            Console.WriteLine("\nSelectionSort [tablica generowana rosnąco]\n");
-            Console.WriteLine("ARRAY SIZE:\t TIME [ms]:");
-
+                        
+            Console.WriteLine("\nSelectionSort [tablica generowana rosnąco]\nARRAY SIZE:\t TIME [ms]:");            
             for (int u = 50000; u <= 200000; u += 10000)
             {
                 int[] TestArray = new int[u];
-                for (int j = 0; j < TestArray.Length; j++) TestArray[j] = j;
+                Array.Copy(ArrayIncreasing, TestArray, u);
 
                 double ElapsedSeconds;
                 long ElapsedTime = 0, MinTime = long.MaxValue, MaxTime = long.MinValue, IterationElapsedTime;
@@ -237,13 +226,11 @@ namespace SortMethodsCompare
                 ElapsedSeconds = ElapsedTime * (1000.0 / (NIter * Stopwatch.Frequency));
                 Console.WriteLine("{0,-12}\t{1}", u, ElapsedSeconds.ToString("F4"));
             }
-            Console.WriteLine("\nCoctailSort [tablica generowana rosnąco]\n");
-            Console.WriteLine("ARRAY SIZE:\t TIME [ms]:");
-
+            Console.WriteLine("\nCoctailSort [tablica generowana rosnąco]\nARRAY SIZE:\t TIME [ms]:");            
             for (int u = 50000; u <= 200000; u += 10000)
             {
                 int[] TestArray = new int[u];
-                for (int j = 0; j < TestArray.Length; j++) TestArray[j] = j;
+                Array.Copy(ArrayIncreasing, TestArray, u);
 
                 double ElapsedSeconds;
                 long ElapsedTime = 0, MinTime = long.MaxValue, MaxTime = long.MinValue, IterationElapsedTime;
@@ -263,16 +250,16 @@ namespace SortMethodsCompare
             }
 
 
-
+            
             // Tablica malejąca
+            int[] ArrayDecreasing = new int[200000];
+            for (int j = ArraDecreasing.Length-1; j >= 0; j--) ArrayDecreasing[j] = j;
 
-            Console.WriteLine("\nInsertionSort [tablica generowana malejąco]\n");
-            Console.WriteLine("ARRAY SIZE:\t TIME [ms]:");
-
+            Console.WriteLine("\nInsertionSort [tablica generowana malejąco]\nARRAY SIZE:\t TIME [ms]:");            
             for (int u = 50000; u <= 200000; u += 10000)
             {
                 int[] TestArray = new int[u];
-                for (int j = TestArray.Length-1; j >= 0; j--) TestArray[j] = j;
+                Array.Copy(ArrayDecreasing, TestArray, u);
 
                 double ElapsedSeconds;
                 long ElapsedTime = 0, MinTime = long.MaxValue, MaxTime = long.MinValue, IterationElapsedTime;
@@ -291,13 +278,11 @@ namespace SortMethodsCompare
                 Console.WriteLine("{0,-12}\t{1}", u, ElapsedSeconds.ToString("F4"));
             }
 
-            Console.WriteLine("\nSelectionSort [tablica generowana malejąco]\n");
-            Console.WriteLine("ARRAY SIZE:\t TIME [ms]:");
-
+            Console.WriteLine("\nSelectionSort [tablica generowana malejąco]\nARRAY SIZE:\t TIME [ms]:");            
             for (int u = 50000; u <= 200000; u += 10000)
             {
                 int[] TestArray = new int[u];
-                for (int j = TestArray.Length-1; j >= 0; j--) TestArray[j] = j;
+                Array.Copy(ArrayDecreasing, TestArray, u);
 
                 double ElapsedSeconds;
                 long ElapsedTime = 0, MinTime = long.MaxValue, MaxTime = long.MinValue, IterationElapsedTime;
@@ -315,13 +300,11 @@ namespace SortMethodsCompare
                 ElapsedSeconds = ElapsedTime * (1000.0 / (NIter * Stopwatch.Frequency));
                 Console.WriteLine("{0,-12}\t{1}", u, ElapsedSeconds.ToString("F4"));
             }
-            Console.WriteLine("\nCoctailSort [tablica generowana malejąco]\n");
-            Console.WriteLine("ARRAY SIZE:\t TIME [ms]:");
-
+            Console.WriteLine("\nCoctailSort [tablica generowana malejąco]\nARRAY SIZE:\t TIME [ms]:"); 
             for (int u = 50000; u <= 200000; u += 10000)
             {
                 int[] TestArray = new int[u];
-                for (int j = TestArray.Length-1; j >= 0; j--) TestArray[j] = j;
+                Array.Copy(ArrayDecreasing, TestArray, u);
 
                 double ElapsedSeconds;
                 long ElapsedTime = 0, MinTime = long.MaxValue, MaxTime = long.MinValue, IterationElapsedTime;
@@ -341,10 +324,12 @@ namespace SortMethodsCompare
             }
 
             // Tablica stała
+            int[] ArrayConstant = new int[200000];
+            Random RandomNumber = new Random(Guid.NewGuid().GetHashCode());
+            int ConstantNumber = RandomNumber.Next(int.MaxValue);
+            for (int j = 0; j < ArrayConstant.Length; j++) ArrayConstant[j] = ConstantNumber;
 
-            Console.WriteLine("\nInsertionSort [tablica stała]\n");
-            Console.WriteLine("ARRAY SIZE:\t TIME [ms]:");
-
+            Console.WriteLine("\nInsertionSort [tablica stała]\nARRAY SIZE:\t TIME [ms]:"); 
             for (int u = 50000; u <= 200000; u += 10000)
             {
                 int[] TestArray = new int[u];
@@ -367,9 +352,7 @@ namespace SortMethodsCompare
                 Console.WriteLine("{0,-12}\t{1}", u, ElapsedSeconds.ToString("F4"));
             }
 
-            Console.WriteLine("\nSelectionSort [tablica stała]\n");
-            Console.WriteLine("ARRAY SIZE:\t TIME [ms]:");
-
+            Console.WriteLine("\nSelectionSort [tablica stała (number = {0})]\nARRAY SIZE:\t TIME [ms]:", ConstantNumber);
             for (int u = 50000; u <= 200000; u += 10000)
             {
                 int[] TestArray = new int[u];
@@ -391,9 +374,7 @@ namespace SortMethodsCompare
                 ElapsedSeconds = ElapsedTime * (1000.0 / (NIter * Stopwatch.Frequency));
                 Console.WriteLine("{0,-12}\t{1}", u, ElapsedSeconds.ToString("F4"));
             }
-            Console.WriteLine("\nCoctailSort [tablica stała]\n");
-            Console.WriteLine("ARRAY SIZE:\t TIME [ms]:");
-
+            Console.WriteLine("\nCoctailSort [tablica stała]\nARRAY SIZE:\t TIME [ms]:");
             for (int u = 50000; u <= 200000; u += 10000)
             {
                 int[] TestArray = new int[u];
@@ -418,18 +399,17 @@ namespace SortMethodsCompare
 
 
             // Tablica V-kształtna
+            int[] ArrayVShape = new int[200000];
+            int Index = 0;
+            for (int i = ArrayVShape.Length / 2; i > 0; i--) ArrayVShape[Index++] = i;
+            for (int i = 0; i < ArrayVShape.Length / 2; i++) ArrayVShape[Index++] = i;
 
-            Console.WriteLine("\nInsertionSort [tablica V-kształtna]\n");
-            Console.WriteLine("ARRAY SIZE:\t TIME [ms]:");
 
+            Console.WriteLine("\nInsertionSort [tablica V-kształtna]\nARRAY SIZE:\t TIME [ms]:");
             for (int u = 50000; u <= 200000; u += 10000)
             {
                 int[] TestArray = new int[u];
-                for (int j = 1; j <= TestArray.Length; j++)
-                {
-                    if (j <= TestArray.Length / 2) TestArray[j] = TestArray.Length - (j * 2 + 1);
-                    else TestArray[j] = (j * 2) - TestArray.Length;
-                }                 
+                Array.Copy(ArrayVShape, ((ArrayVShape.Length - u) / 2), TestArray, 0, u);            
 
                 double ElapsedSeconds;
                 long ElapsedTime = 0, MinTime = long.MaxValue, MaxTime = long.MinValue, IterationElapsedTime;
@@ -448,17 +428,11 @@ namespace SortMethodsCompare
                 Console.WriteLine("{0,-12}\t{1}", u, ElapsedSeconds.ToString("F4"));
             }
 
-            Console.WriteLine("\nSelectionSort [tablica V-kształtna]\n");
-            Console.WriteLine("ARRAY SIZE:\t TIME [ms]:");
-
+            Console.WriteLine("\nSelectionSort [tablica V-kształtna]\nARRAY SIZE:\t TIME [ms]:");
             for (int u = 50000; u <= 200000; u += 10000)
             {
                 int[] TestArray = new int[u];
-                for (int j = 1; j <= TestArray.Length; j++)
-                {
-                    if (j <= TestArray.Length / 2) TestArray[j] = TestArray.Length - (j * 2 + 1);
-                    else TestArray[j] = (j * 2) - TestArray.Length;
-                }
+                Array.Copy(ArrayVShape, ((ArrayVShape.Length - u) / 2), TestArray, 0, u);
 
                 double ElapsedSeconds;
                 long ElapsedTime = 0, MinTime = long.MaxValue, MaxTime = long.MinValue, IterationElapsedTime;
@@ -476,17 +450,11 @@ namespace SortMethodsCompare
                 ElapsedSeconds = ElapsedTime * (1000.0 / (NIter * Stopwatch.Frequency));
                 Console.WriteLine("{0,-12}\t{1}", u, ElapsedSeconds.ToString("F4"));
             }
-            Console.WriteLine("\nCoctailSort [tablica V-kształtna]\n");
-            Console.WriteLine("ARRAY SIZE:\t TIME [ms]:");
-
+            Console.WriteLine("\nCoctailSort [tablica V-kształtna]\nARRAY SIZE:\t TIME [ms]:");
             for (int u = 50000; u <= 200000; u += 10000)
-            {                
+            {
                 int[] TestArray = new int[u];
-                for (int j = 1; j <= TestArray.Length; j++)
-                {
-                    if (j <= TestArray.Length / 2) TestArray[j] = TestArray.Length - (j * 2 + 1);
-                    else TestArray[j] = (j * 2) - TestArray.Length;
-                }
+                Array.Copy(ArrayVShape, ((ArrayVShape.Length - u) / 2), TestArray, 0, u);
 
                 double ElapsedSeconds;
                 long ElapsedTime = 0, MinTime = long.MaxValue, MaxTime = long.MinValue, IterationElapsedTime;
@@ -504,9 +472,9 @@ namespace SortMethodsCompare
                 ElapsedSeconds = ElapsedTime * (1000.0 / (NIter * Stopwatch.Frequency));
                 Console.WriteLine("{0,-12}\t{1}", u, ElapsedSeconds.ToString("F4"));
             }
-
-            Console.ReadLine();
+            
             Console.WriteLine("Uwaga! Nastąpi wyjście z programu, Skopiuj i zapisz wyniki!");
+            Console.ReadLine();
             Console.ReadLine();
 
         }
