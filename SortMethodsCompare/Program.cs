@@ -110,8 +110,8 @@ namespace SortMethodsCompare
                 }
             }
             while (i <= j);
-            if (l < j) qsort(t, l, j); // sortujemy lewą część (jeśli jest)
-            if (i < p) qsort(t, i, p); // sortujemy prawą część (jeśli jest)
+            if (l < j) QuickSortRecurse(t, l, j); // sortujemy lewą część (jeśli jest)
+            if (i < p) QuickSortRecurse(t, i, p); // sortujemy prawą część (jeśli jest)
         } /* qsort() */
         static void QuickSortIter(int[] t)
         {
