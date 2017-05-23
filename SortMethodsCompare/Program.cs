@@ -6,8 +6,8 @@ namespace SortMethodsCompare
 {
     class Program
     {
-        const int NIter = 100; // Liczba powtórzeń testu.        
-
+        const int NIter = 10; // Liczba powtórzeń testu.        
+        
         static void InsertionSort(int[] t)
         {
             for (uint i = 1; i < t.Length; i++)
@@ -296,7 +296,7 @@ namespace SortMethodsCompare
             for (int j = 0; j < ArrayRandom.Length; j++) ArrayRandom[j] = rnd.Next(int.MaxValue);
             
             Sort("Insertion Sort", ArrayType, ArrayRandom, InsertionSort);
-            //Sort("Selection Sort", ArrayType, ArrayRandom, SelectionSort);
+            Sort("Selection Sort", ArrayType, ArrayRandom, SelectionSort);
             Sort("Heap Sort", ArrayType, ArrayRandom, HeapSort);
             Sort("Cocktail Sort", ArrayType, ArrayRandom, CocktailSort);
             
@@ -306,7 +306,7 @@ namespace SortMethodsCompare
             for (int j = 0; j < ArrayIncreasing.Length; j++) ArrayIncreasing[j] = j;
             
             Sort("Insertion Sort", ArrayType, ArrayIncreasing, InsertionSort);
-            //Sort("Selection Sort", ArrayType, ArrayIncreasing, SelectionSort);
+            Sort("Selection Sort", ArrayType, ArrayIncreasing, SelectionSort);
             Sort("Heap Sort", ArrayType, ArrayIncreasing, HeapSort);
             Sort("Cocktail Sort", ArrayType, ArrayIncreasing, CocktailSort);
             
@@ -316,7 +316,7 @@ namespace SortMethodsCompare
             for (int j = ArrayDecreasing.Length - 1; j >= 0; j--) ArrayDecreasing[j] = j;
             
             Sort("Insertion Sort", ArrayType, ArrayDecreasing, InsertionSort);
-            //Sort("Selection Sort", ArrayType, ArrayDecreasing, SelectionSort);
+            Sort("Selection Sort", ArrayType, ArrayDecreasing, SelectionSort);
             Sort("Heap Sort", ArrayType, ArrayDecreasing, HeapSort);
             Sort("Cocktail Sort", ArrayType, ArrayDecreasing, CocktailSort);
             
@@ -328,7 +328,7 @@ namespace SortMethodsCompare
             for (int j = 0; j < ArrayConstant.Length; j++) ArrayConstant[j] = ConstantNumber;
             
             Sort("Insertion Sort", ArrayType, ArrayConstant, InsertionSort);
-            //Sort("Selection Sort", ArrayType, ArrayConstant, SelectionSort);
+            Sort("Selection Sort", ArrayType, ArrayConstant, SelectionSort);
             Sort("Heap Sort", ArrayType, ArrayConstant, HeapSort);
             Sort("Cocktail Sort", ArrayType, ArrayConstant, CocktailSort);
             
@@ -340,7 +340,7 @@ namespace SortMethodsCompare
             for (int i = 0; i < ArrayVShape.Length / 2; i++) ArrayVShape[IndexVShape++] = i;
             
             Sort("Insertion Sort", ArrayType, ArrayVShape, InsertionSort);
-            //Sort("Selection Sort", ArrayType, ArrayVShape, SelectionSort);
+            Sort("Selection Sort", ArrayType, ArrayVShape, SelectionSort);
             Sort("Heap Sort", ArrayType, ArrayVShape, HeapSort);
             Sort("Cocktail Sort", ArrayType, ArrayVShape, CocktailSort);
             
@@ -405,10 +405,14 @@ namespace SortMethodsCompare
             Sort("Iteration Quick Sort - mediana at random index ", ArrayType, ArrayAShape, QuickSortIter_MedianaAtRandomIndex);
             
          
-
+            
             Console.WriteLine("\n\nUwaga! Nastąpi wyjście z programu, Skopiuj i zapisz wyniki!");
-            Console.ReadLine();
-            Console.ReadLine();
+            string exit;
+            do
+            {
+                Console.Write("Aby wyjść wpisz słowo exit: "); exit = Console.ReadLine();
+            } while (exit!="exit");
+            
             
         }
     }
