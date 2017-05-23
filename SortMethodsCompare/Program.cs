@@ -6,7 +6,7 @@ namespace SortMethodsCompare
 {
     class Program
     {
-        const int NIter = 10; // Liczba powtórzeń testu.
+        const int NIter = 100; // Liczba powtórzeń testu.        
 
         static void InsertionSort(int[] t)
         {
@@ -95,13 +95,17 @@ namespace SortMethodsCompare
             }
             while (Left <= Right);
         } /* CocktailSort() */        
-        static void QuickSortRecurse_MedianaAverage3(int[] t, int l , int p)
+        static void QuickSortRecurse(int[] t, int l , int p)
         {
             int i, j, x;
             i = l;
-            j = p;
-            Random rnd = new Random(Guid.NewGuid().GetHashCode());
-            x = (t[(rnd.Next(t.Length - 1))] + t[(rnd.Next(t.Length - 1))] + t[(rnd.Next(t.Length - 1))]) / 3; // (pseudo)mediana 
+            j = p;            
+            int Index1 = t[l];
+            int Index2 = t[(l+p)/2];
+            int Index3 = t[p];
+            x = Math.Max(Math.Min(Index1, Index2), Math.Min(Math.Max(Index1, Index2), Index3)); // (pseudo)mediana 
+
+
             do
             {
                 while (t[i] < x) i++; // przesuwamy indeksy z lewej
@@ -113,10 +117,10 @@ namespace SortMethodsCompare
                 }
             }
             while (i <= j);
-            if (l < j) QuickSortRecurse_MedianaAverage3(t, l, j); // sortujemy lewą część (jeśli jest)
-            if (i < p) QuickSortRecurse_MedianaAverage3(t, i, p); // sortujemy prawą część (jeśli jest)
+            if (l < j) QuickSortRecurse(t, l, j); // sortujemy lewą część (jeśli jest)
+            if (i < p) QuickSortRecurse(t, i, p); // sortujemy prawą część (jeśli jest)
         } /* qsort() */        
-        static void QuickSortIter_MedianaAverage3(int[] t)
+        static void QuickSortIter(int[] t)
         {
             int i, j, l, p, sp;
             int[] stos_l = new int[t.Length],
@@ -126,9 +130,12 @@ namespace SortMethodsCompare
             {
                 l = stos_l[sp]; p = stos_p[sp]; sp--;               // pobieramy żądanie podziału 
                 do
-                {
-                    Random rnd = new Random(Guid.NewGuid().GetHashCode());
-                    int x; i = l; j = p; x = (t[(rnd.Next(t.Length - 1))] + t[(rnd.Next(t.Length - 1))] + t[(rnd.Next(t.Length - 1))]) / 3;                       // analogicznie do wersji rekurencyjnej
+                {                    
+                    int x; i = l; j = p;
+                    int Index1 = t[l];
+                    int Index2 = t[(l + p) / 2];
+                    int Index3 = t[p];
+                    x = Math.Max(Math.Min(Index1, Index2), Math.Min(Math.Max(Index1, Index2), Index3)); // (pseudo)mediana                       // analogicznie do wersji rekurencyjnej
                     do
                     {
                         while (t[i] < x) i++;
@@ -149,40 +156,7 @@ namespace SortMethodsCompare
                     p = j;
                 } while (l < p);
             } while (sp >= 0);                                      // dopóki stos żądań nie będzie pusty 
-        } /* qsort() */
-        static void QuickSortIter_MedianaAtFirstIndex(int[] t)
-        {
-            int i, j, l, p, sp;
-            int[] stos_l = new int[t.Length],
-                stos_p = new int[t.Length];                // przechowywanie żądań podziału
-            sp = 0; stos_l[sp] = 0; stos_p[sp] = t.Length - 1;  // rozpoczynamy od całej tablicy
-            do
-            {
-                l = stos_l[sp]; p = stos_p[sp]; sp--;               // pobieramy żądanie podziału 
-                do
-                {
-                    int x; i = l; j = p; x = t[0];                       // analogicznie do wersji rekurencyjnej
-                    do
-                    {
-                        while (t[i] < x) i++;
-                        while (x < t[j]) j--;
-                        if (i <= j)
-                        {
-                            int buf = t[i]; t[i] = t[j]; t[j] = buf;
-                            i++; j--;
-                        }
-                    }
-                    while (i <= j);
-                    if (i < p)
-                    {
-                        sp++;
-                        stos_l[sp] = i;
-                        stos_p[sp] = p;
-                    } // ewentualnie dodajemy żądanie podziału
-                    p = j;
-                } while (l < p);
-            } while (sp >= 0);                                      // dopóki stos żądań nie będzie pusty 
-        } /* qsort() */
+        } /* qsort() */        
         static void QuickSortIter_MedianaAtMiddleIndex(int[] t)
         {
             int i, j, l, p, sp;
@@ -249,6 +223,41 @@ namespace SortMethodsCompare
                 } while (l < p);
             } while (sp >= 0);                                      // dopóki stos żądań nie będzie pusty 
         } /* qsort() */
+        static void QuickSortIter_MedianaAtRandomIndex(int[] t)
+        {
+            Random rnd = new Random(Guid.NewGuid().GetHashCode());
+            int i, j, l, p, sp;
+            int[] stos_l = new int[t.Length],
+                stos_p = new int[t.Length];                // przechowywanie żądań podziału
+            sp = 0; stos_l[sp] = 0; stos_p[sp] = t.Length - 1;  // rozpoczynamy od całej tablicy
+            do
+            {
+                l = stos_l[sp]; p = stos_p[sp]; sp--;               // pobieramy żądanie podziału 
+                do
+                {
+
+                    int x; i = l; j = p; x = t[rnd.Next(t.Length - 1)];                       // analogicznie do wersji rekurencyjnej
+                    do
+                    {
+                        while (t[i] < x) i++;
+                        while (x < t[j]) j--;
+                        if (i <= j)
+                        {
+                            int buf = t[i]; t[i] = t[j]; t[j] = buf;
+                            i++; j--;
+                        }
+                    }
+                    while (i <= j);
+                    if (i < p)
+                    {
+                        sp++;
+                        stos_l[sp] = i;
+                        stos_p[sp] = p;
+                    } // ewentualnie dodajemy żądanie podziału
+                    p = j;
+                } while (l < p);
+            } while (sp >= 0);                                      // dopóki stos żądań nie będzie pusty 
+        } /* qsort() */
 
         static void Sort(string SortName, string ArrayType, int[] ArrayToSort, Action<int[]> SortFunction)
         {            
@@ -280,73 +289,73 @@ namespace SortMethodsCompare
             // Part I
             string ArrayType;
 
-
+            
             ArrayType = "Random Array";
             Random rnd = new Random(Guid.NewGuid().GetHashCode());
             int[] ArrayRandom = new int[200000];
             for (int j = 0; j < ArrayRandom.Length; j++) ArrayRandom[j] = rnd.Next(int.MaxValue);
             
             Sort("Insertion Sort", ArrayType, ArrayRandom, InsertionSort);
-            Sort("Selection Sort", ArrayType, ArrayRandom, SelectionSort);
+            //Sort("Selection Sort", ArrayType, ArrayRandom, SelectionSort);
             Sort("Heap Sort", ArrayType, ArrayRandom, HeapSort);
             Sort("Cocktail Sort", ArrayType, ArrayRandom, CocktailSort);
-
+            
 
             ArrayType = "Increasing Array";
             int[] ArrayIncreasing = new int[200000];
             for (int j = 0; j < ArrayIncreasing.Length; j++) ArrayIncreasing[j] = j;
-
+            
             Sort("Insertion Sort", ArrayType, ArrayIncreasing, InsertionSort);
-            Sort("Selection Sort", ArrayType, ArrayIncreasing, SelectionSort);
+            //Sort("Selection Sort", ArrayType, ArrayIncreasing, SelectionSort);
             Sort("Heap Sort", ArrayType, ArrayIncreasing, HeapSort);
             Sort("Cocktail Sort", ArrayType, ArrayIncreasing, CocktailSort);
-
+            
 
             ArrayType = "Decreasing Array";
             int[] ArrayDecreasing = new int[200000];
             for (int j = ArrayDecreasing.Length - 1; j >= 0; j--) ArrayDecreasing[j] = j;
-
+            
             Sort("Insertion Sort", ArrayType, ArrayDecreasing, InsertionSort);
-            Sort("Selection Sort", ArrayType, ArrayDecreasing, SelectionSort);
+            //Sort("Selection Sort", ArrayType, ArrayDecreasing, SelectionSort);
             Sort("Heap Sort", ArrayType, ArrayDecreasing, HeapSort);
             Sort("Cocktail Sort", ArrayType, ArrayDecreasing, CocktailSort);
-
+            
 
             ArrayType = "Constant Array";
             int[] ArrayConstant = new int[200000];
             Random RandomNumber = new Random(Guid.NewGuid().GetHashCode());
             int ConstantNumber = RandomNumber.Next(int.MaxValue);
             for (int j = 0; j < ArrayConstant.Length; j++) ArrayConstant[j] = ConstantNumber;
-
+            
             Sort("Insertion Sort", ArrayType, ArrayConstant, InsertionSort);
-            Sort("Selection Sort", ArrayType, ArrayConstant, SelectionSort);
+            //Sort("Selection Sort", ArrayType, ArrayConstant, SelectionSort);
             Sort("Heap Sort", ArrayType, ArrayConstant, HeapSort);
             Sort("Cocktail Sort", ArrayType, ArrayConstant, CocktailSort);
-
+            
 
             ArrayType = "V-shape Array";
             int[] ArrayVShape = new int[200000];
             int IndexVShape = 0;
             for (int i = ArrayVShape.Length / 2; i > 0; i--) ArrayVShape[IndexVShape++] = i;
             for (int i = 0; i < ArrayVShape.Length / 2; i++) ArrayVShape[IndexVShape++] = i;
-
+            
             Sort("Insertion Sort", ArrayType, ArrayVShape, InsertionSort);
-            Sort("Selection Sort", ArrayType, ArrayVShape, SelectionSort);
+            //Sort("Selection Sort", ArrayType, ArrayVShape, SelectionSort);
             Sort("Heap Sort", ArrayType, ArrayVShape, HeapSort);
             Sort("Cocktail Sort", ArrayType, ArrayVShape, CocktailSort);
-
+            
             ArrayType = "A-shape Array";
             int[] ArrayAShape = new int[200000];
             int IndexAShape = 0;
             for (int i = 0; i < ArrayVShape.Length / 2; i++) ArrayVShape[IndexAShape++] = i;
-            for (int i = ArrayVShape.Length / 2; i > 0; i--) ArrayVShape[IndexAShape++] = i;            
+            for (int i = ArrayVShape.Length / 2; i > 0; i--) ArrayVShape[IndexAShape++] = i;
 
 
             // Part II
 
             // Part III
-
-            Console.WriteLine("\nRecurse Quick Sort [Random Array]\nARRAY SIZE:\t TIME [ms]:");
+            
+            Console.WriteLine("\nIteration QuickSort [Random Array]\nARRAY SIZE:\t TIME [ms]:");
             for (int u = 50000; u <= 200000; u += 10000)
             {
                 int[] TestArray = new int[u];
@@ -356,7 +365,7 @@ namespace SortMethodsCompare
                 for (int n = 0; n < (NIter + 1 + 1); ++n)
                 {
                     long StartingTime = Stopwatch.GetTimestamp();
-                    QuickSortRecurse_MedianaAverage3(TestArray,0,TestArray.Length-1);
+                    QuickSortIter(TestArray);
                     long EndingTime = Stopwatch.GetTimestamp();
                     IterationElapsedTime = EndingTime - StartingTime;
                     ElapsedTime += IterationElapsedTime;
@@ -368,15 +377,36 @@ namespace SortMethodsCompare
                 Console.WriteLine("{0,-12}\t{1}", u, ElapsedSeconds.ToString("F4"));
             }
 
-            Sort("Iteration Quick Sort", ArrayType, ArrayRandom, QuickSortIter_MedianaAverage3);
+            Console.WriteLine("\nRecurse QuickSort [Random Array]\nARRAY SIZE:\t TIME [ms]:");
+            for (int u = 50000; u <= 200000; u += 10000)
+            {
+                int[] TestArray = new int[u];
+                Array.Copy(ArrayRandom, TestArray, u);
+                double ElapsedSeconds;
+                long ElapsedTime = 0, MinTime = long.MaxValue, MaxTime = long.MinValue, IterationElapsedTime;
+                for (int n = 0; n < (NIter + 1 + 1); ++n)
+                {
+                    long StartingTime = Stopwatch.GetTimestamp();
+                    QuickSortRecurse(TestArray, 0, u - 1);
+                    long EndingTime = Stopwatch.GetTimestamp();
+                    IterationElapsedTime = EndingTime - StartingTime;
+                    ElapsedTime += IterationElapsedTime;
+                    if (IterationElapsedTime < MinTime) MinTime = IterationElapsedTime;
+                    if (IterationElapsedTime > MaxTime) MaxTime = IterationElapsedTime;
+                }
+                ElapsedTime -= (MinTime + MaxTime);
+                ElapsedSeconds = ElapsedTime * (1000.0 / (NIter * Stopwatch.Frequency));
+                Console.WriteLine("{0,-12}\t{1}", u, ElapsedSeconds.ToString("F4"));
+            }
 
-            Sort("Iteration Quick Sort - mediana at first index ", ArrayType, ArrayAShape, QuickSortIter_MedianaAtFirstIndex);
+            
             Sort("Iteration Quick Sort - mediana at middle index ", ArrayType, ArrayAShape, QuickSortIter_MedianaAtMiddleIndex);
             Sort("Iteration Quick Sort - mediana at last index ", ArrayType, ArrayAShape, QuickSortIter_MedianaAtLastIndex);
+            Sort("Iteration Quick Sort - mediana at random index ", ArrayType, ArrayAShape, QuickSortIter_MedianaAtRandomIndex);
+            
+         
 
-
-
-            Console.WriteLine("Uwaga! Nastąpi wyjście z programu, Skopiuj i zapisz wyniki!");
+            Console.WriteLine("\n\nUwaga! Nastąpi wyjście z programu, Skopiuj i zapisz wyniki!");
             Console.ReadLine();
             Console.ReadLine();
             
