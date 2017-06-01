@@ -5,7 +5,7 @@ namespace SortMethodsCompare
 {
     class Program
     {
-        const int NIter = 1; // Liczba powtórzeń testu.        
+        const int NIter = 10; // Liczba powtórzeń testu.        
 
         static void InsertionSort(int[] t)
         {
